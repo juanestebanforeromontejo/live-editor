@@ -1,15 +1,32 @@
 "use client";
+
+import Image from "next/image"
 import { Button } from "./ui/button"
+import { createDocument } from "@/lib/actions/room.actions";
+import { useRouter } from "next/navigation";
 
-interface Props {
-  onAdd: () => void,
-}
+const AddDocumentBtn = ({userId, email}: AddDocumentBtnProps) => {
+  const router = useRouter();
 
-const AddDocumentBtn = (props: Props) => {
+  const addDocumentHandler = async () => {
+    try {
+      const room = await createDocument({ userId, email});
+
+      if (room) router.push(`/documents/${room.id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
-    <div>
-      <Button className="bg-blue-500 p-2" onClick={props.onAdd}>+ Start a blank document</Button>
-    </div>
+    <Button type="submit" onClick={addDocumentHandler}
+      className="gradient-blue flex gap-1 shadow-md"> 
+
+      <Image src={"/assets/icons/add.svg"}
+        width={24} height={24} alt="add"/>
+
+      <p className="hidden sm:block">Start a blank document</p>
+    </Button>
   )
 }
 

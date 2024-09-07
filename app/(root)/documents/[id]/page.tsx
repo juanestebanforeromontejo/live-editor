@@ -1,9 +1,10 @@
-import React from 'react'
+import CollaborativeRoom from "@/components/CollaborativeRoom"
 
 const Document = () => {
   return (
-    <div>
-    </div>
+    <main className="flex w-screen flex-col justify-center">
+      <CollaborativeRoom/>
+    </main>
   )
 }
 export default Document
